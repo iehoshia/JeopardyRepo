@@ -45,14 +45,22 @@ public class ReferenciaActivity extends AppCompatActivity {
         rbP3.setText(sR3);
         rbP4.setText(sR4);
 
-        rbP1.setOnClickListener(new OnClickListenerRP1());
+        rbP1.setOnClickListener(new OnClickListenerRP(rbP1));
+        rbP2.setOnClickListener(new OnClickListenerRP(rbP2));
+        rbP3.setOnClickListener(new OnClickListenerRP(rbP3));
+        rbP4.setOnClickListener(new OnClickListenerRP(rbP4));
 
     }
 
-    private class OnClickListenerRP1 implements View.OnClickListener {
+    private class OnClickListenerRP implements View.OnClickListener {
+        RadioButton rbActual;
+        public OnClickListenerRP(RadioButton rbActualGen){
+            rbActual = rbActualGen;
+        }
+
         @Override
         public void onClick(View v) {
-            String resultado = sR1;
+            String resultado = rbActual.getText().toString();
             Intent in = new Intent(ReferenciaActivity.this,
                     MainActivity.class);
             in.putExtra("usuario",usuario);
@@ -65,7 +73,7 @@ public class ReferenciaActivity extends AppCompatActivity {
             } else {
                 Toast.makeText(getApplicationContext(), "Respuesta incorrecta",
                         Toast.LENGTH_SHORT).show();
-                in.putExtra("valor",0);
+                in.putExtra("valor","0");
             }
             startActivity(in);
         }
