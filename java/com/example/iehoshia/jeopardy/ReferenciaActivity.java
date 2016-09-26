@@ -19,7 +19,7 @@ public class ReferenciaActivity extends AppCompatActivity {
     TextView tvPregunta;
     RadioButton rbP1, rbP2, rbP3, rbP4;
     String correcta;
-    String sR1, sR2, sR3, sR4, usuario, valor;
+    String sR1, sR2, sR3, sR4, usuario, valor, valor1, valor2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,8 +38,12 @@ public class ReferenciaActivity extends AppCompatActivity {
         sR2 = intent.getStringExtra("r2");
         sR3 = intent.getStringExtra("r3");
         sR4 = intent.getStringExtra("r4");
+
+        valor1 = intent.getStringExtra("valor1");
+        valor2 = intent.getStringExtra("valor2");
+
         usuario = intent.getStringExtra("usuario");
-        Toast.makeText(getApplicationContext(), usuario + " ACTUAL",Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getApplicationContext(), usuario + " ACTUAL",Toast.LENGTH_SHORT).show();
         correcta= intent.getStringExtra("correcta");
         valor = intent.getStringExtra("valor");
 
@@ -66,21 +70,37 @@ public class ReferenciaActivity extends AppCompatActivity {
         @TargetApi(Build.VERSION_CODES.KITKAT)
         @Override
         public void onClick(View v) {
-            String resultado = rbActual.getText().toString();
+            String respuesta = rbActual.getText().toString();
             Intent in = new Intent(ReferenciaActivity.this,
                     MainActivity.class);
             in.putExtra("usuario",usuario);
-
-            if (Objects.equals(resultado,correcta)){
-                Toast.makeText(getApplicationContext(), "Respuesta correcto",
+            in.putExtra("valor1",valor1);
+            in.putExtra("valor2",valor2);
+            String resultado="";
+            if (Objects.equals(respuesta,correcta)){
+                Toast.makeText(getApplicationContext(), "Respuesta correcta",
                         Toast.LENGTH_SHORT).show();
-                in.putExtra("valor",valor);
+                resultado = valor;
 
             } else {
                 Toast.makeText(getApplicationContext(), "Respuesta incorrecta",
                         Toast.LENGTH_SHORT).show();
-                in.putExtra("valor","0");
+                resultado = "0";
             }
+            Integer valorAEnviar=0;
+            Integer iResultado = Integer.valueOf(resultado);
+            Integer iValor1 = Integer.valueOf(valor1);
+            Integer iValor2 = Integer.valueOf(valor2);
+
+            if (Objects.equals(usuario,"usuario1")){
+                valorAEnviar = iValor1 + iResultado;
+            }
+            if (Objects.equals(usuario,"usuario2")){
+                valorAEnviar = iValor2 + iResultado;
+            }
+            String sValorAEnviar = String.valueOf(valorAEnviar);
+
+            in.putExtra("valor",sValorAEnviar);
             startActivity(in);
         }
     }
