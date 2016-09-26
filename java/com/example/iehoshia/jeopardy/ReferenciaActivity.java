@@ -15,7 +15,7 @@ public class ReferenciaActivity extends AppCompatActivity {
     TextView tvPregunta;
     RadioButton rbP1, rbP2, rbP3, rbP4;
     String correcta;
-    String sR1, sR2, sR3, sR4;
+    String sR1, sR2, sR3, sR4, usuario, valor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +34,9 @@ public class ReferenciaActivity extends AppCompatActivity {
         sR2 = intent.getStringExtra("r2");
         sR3 = intent.getStringExtra("r3");
         sR4 = intent.getStringExtra("r4");
+        usuario = intent.getStringExtra("usuario");
         correcta= intent.getStringExtra("correcta");
+        valor = intent.getStringExtra("valor");
 
 
         tvPregunta.setText(sPregunta);
@@ -51,18 +53,21 @@ public class ReferenciaActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             String resultado = sR1;
+            Intent in = new Intent(ReferenciaActivity.this,
+                    MainActivity.class);
+            in.putExtra("usuario",usuario);
+
             if (resultado == correcta){
-                Toast.makeText(getApplicationContext(), "Resultado correcto",
+                Toast.makeText(getApplicationContext(), "Respuesta correcto",
                         Toast.LENGTH_SHORT).show();
-                Intent in = new Intent(ReferenciaActivity.this,
-                        MainActivity.class);
-                //in.putExtra()
+                in.putExtra("valor",valor);
 
             } else {
-                Toast.makeText(getApplicationContext(), "Resultado incorrecta",
+                Toast.makeText(getApplicationContext(), "Respuesta incorrecta",
                         Toast.LENGTH_SHORT).show();
-
+                in.putExtra("valor",0);
             }
+            startActivity(in);
         }
     }
 }
