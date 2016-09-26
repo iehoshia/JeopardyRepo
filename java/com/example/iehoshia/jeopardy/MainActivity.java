@@ -26,36 +26,26 @@ public class MainActivity extends AppCompatActivity {
 
         btnNombre.setOnClickListener(new OnClickListenerVariable());
 
-        valor = "";
         tvUsuario1 = (TextView) findViewById(R.id.textView3);
         tvUsuario2 = (TextView) findViewById(R.id.textView4);
         Intent intent = getIntent();
         usuario = intent.getStringExtra("usuario");
         valor= intent.getStringExtra("valor");
 
-        if (usuario==""){
+        Toast.makeText(getApplicationContext(), usuario +" linea 35", Toast.LENGTH_SHORT).show();
+        if (usuario == "usuario1") {
+            tvUsuario1.setText("Usuario 1: " + valor);
+        }
+        if(usuario == "usuario2") {
+            tvUsuario2.setText("Usuario 2: " + valor);
+        }
+        if ( usuario=="usuario2"  || usuario==null){
             usuario = "usuario1";
         }else {
             usuario = "usuario2";
         }
-
-        Toast.makeText(getApplicationContext(), usuario, Toast.LENGTH_SHORT).show();
-        if (usuario == "usuario1") {
-            tvUsuario1.setText("Usuario 1: " +valor);
-        } else {
-            tvUsuario2.setText("Usuario 2: " +valor);
-        }
+        Toast.makeText(getApplicationContext(), usuario +" linea 47", Toast.LENGTH_SHORT).show();
     }
-
-
-    protected void onResume (Bundle savedInstanceState) {
-        Intent intent = getIntent();
-        usuario = intent.getStringExtra("usuario");
-        valor= intent.getStringExtra("valor");
-
-
-    }
-
 
     private class OnClickListenerVariable implements View.OnClickListener {
         @Override
@@ -74,11 +64,7 @@ public class MainActivity extends AppCompatActivity {
             in.putExtra("r4",sR4);
             in.putExtra("correcta",sR4);
             in.putExtra("valor","100");
-            if (usuario=="usuario2"){
-                in.putExtra("usuario","usuario1");
-            } else {
-                in.putExtra("usuario","usuario2");
-            }
+            in.putExtra("usuario",usuario);
 
             startActivity(in);
         }

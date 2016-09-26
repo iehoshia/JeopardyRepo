@@ -1,6 +1,8 @@
 package com.example.iehoshia.jeopardy;
 
+import android.annotation.TargetApi;
 import android.content.Intent;
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -9,6 +11,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.w3c.dom.Text;
+
+import java.util.Objects;
 
 public class ReferenciaActivity extends AppCompatActivity {
 
@@ -35,6 +39,7 @@ public class ReferenciaActivity extends AppCompatActivity {
         sR3 = intent.getStringExtra("r3");
         sR4 = intent.getStringExtra("r4");
         usuario = intent.getStringExtra("usuario");
+        Toast.makeText(getApplicationContext(), usuario + " ACTUAL",Toast.LENGTH_SHORT).show();
         correcta= intent.getStringExtra("correcta");
         valor = intent.getStringExtra("valor");
 
@@ -58,6 +63,7 @@ public class ReferenciaActivity extends AppCompatActivity {
             rbActual = rbActualGen;
         }
 
+        @TargetApi(Build.VERSION_CODES.KITKAT)
         @Override
         public void onClick(View v) {
             String resultado = rbActual.getText().toString();
@@ -65,7 +71,7 @@ public class ReferenciaActivity extends AppCompatActivity {
                     MainActivity.class);
             in.putExtra("usuario",usuario);
 
-            if (resultado == correcta){
+            if (Objects.equals(resultado,correcta)){
                 Toast.makeText(getApplicationContext(), "Respuesta correcto",
                         Toast.LENGTH_SHORT).show();
                 in.putExtra("valor",valor);
