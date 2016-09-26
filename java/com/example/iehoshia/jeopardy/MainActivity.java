@@ -1,6 +1,8 @@
 package com.example.iehoshia.jeopardy;
 
+import android.annotation.TargetApi;
 import android.content.Intent;
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -8,6 +10,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
     Button btnNombre;
@@ -17,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+    @TargetApi(Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,13 +38,13 @@ public class MainActivity extends AppCompatActivity {
         valor= intent.getStringExtra("valor");
 
         Toast.makeText(getApplicationContext(), usuario +" linea 35", Toast.LENGTH_SHORT).show();
-        if (usuario == "usuario1") {
+        if (Objects.equals(usuario , "usuario1")) {
             tvUsuario1.setText("Usuario 1: " + valor);
         }
-        if(usuario == "usuario2") {
+        if(Objects.equals(usuario , "usuario2")) {
             tvUsuario2.setText("Usuario 2: " + valor);
         }
-        if ( usuario=="usuario2"  || usuario==null){
+        if ( Objects.equals(usuario,"usuario2")  || usuario==null){
             usuario = "usuario1";
         }else {
             usuario = "usuario2";
